@@ -3,6 +3,7 @@ import logoTransparent from '../assets/logotransparent.png'
 import '../styles/RifDashboard.scss'
 import WhatIsRif from './WhatIsRif'
 import CreateNewProject from './CreateNewProject'
+import YourProjects from './YourProjects'
 
 const RifDashboard = () => {
   const [isWhatIsRifOpen, setIsWhatIsRifOpen] = useState(false)
@@ -21,9 +22,7 @@ const RifDashboard = () => {
         </section>
 
         <aside className="projects-panel">
-          <h2>Your projects</h2>
-          <button>Project #1</button>
-          <button>Project #2</button>
+            <YourProjects />
         </aside>
       </main>
 
