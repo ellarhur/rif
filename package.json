@@ -1,0 +1,34 @@
+{
+  "name": "rif",
+  "version": "1.0.0",
+  "description": "Rif, proof of creative process.",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ellarhur/rif.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ellarhur/rif/issues"
+  },
+  "homepage": "https://github.com/ellarhur/rif#readme",
+  "devDependencies": {
+    "@types/node": "^22.19.15",
+    "hardhat": "^3.2.0",
+    "typescript": "~5.8.0"
+  },
+  "type": "module",
+  "dependencies": {
+    "ethers": "^6.16.0",
+    "react-router-dom": "^7.13.2",
+    "sass": "^1.98.0"
+  }
+}
