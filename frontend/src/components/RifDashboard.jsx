@@ -2,35 +2,26 @@ import React from 'react'
 
 const RifDashboard = () => {
   return (
-    <div className='RifDashboard'>
-        <div className='logoimage'>
-            <img src={logo} alt='Rif Logo' />
-        </div>
-        <div className='leftwrapper'>
-            <div className='buttonswrapper'>
-                <button className='button'>
-                    <img src={createProject} alt='Create Project' />
-                    <span>Create Project</span>
-                </button>
-                <button className='button'>
-                    <img src={createProject} alt='Create Project' />
-                    <span>Create Project</span>
-                </button>
-            </div>
-            <div className='rightwrapper'>
-                <div className='projectsbubble'>
-                    <h2>List of your projects</h2>
-                    <div className='projectlist'>
-                        <div className='projectitem'>
-                            <img src={projectImage} alt='Project Image' />
-                            
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div className="dashboard-page">
+      <div className="brand">
+        <h1>Rif.</h1>
+        <p>Proof of creative process.</p>
+      </div>
 
+      <main className="dashboard-main">
+        <section className="dashboard-actions">
+          <button>Create a new project</button>
+          <button>What is Rif?</button>
+        </section>
 
+        <aside className="projects-panel">
+          <h2>Your projects</h2>
+          <button>Project #1</button>
+          <button>Project #2</button>
+        </aside>
+      </main>
+
+      <footer className="dashboard-footer">Concept & development by Ella, 2026.</footer>
     </div>
   )
 }
