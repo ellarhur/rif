@@ -1,13 +1,14 @@
 import React from 'react'
 
 const YourProjects = () => {
-  return (
-    <div className='yourprojects-modal'>
-        <h1>Your Projects</h1>
-        <p>Here are your projects.</p>
-        < ProjectItem />
-        
+  const projectItems = ['Project #1', 'Project #2']
 
+  return (
+    <div className="yourprojects-panel">
+      <h1>Your projects</h1>
+      {projectItems.map((projectName) => (
+        <button key={projectName}>{projectName}</button>
+      ))}
     </div>
   )
 }

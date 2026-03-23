@@ -1,11 +1,91 @@
 .brand {
     display: flex;
-    width: 260px;
+    width: 160px;
+    margin-bottom: 1.2rem;
 }
 
 .brand img {
     width: 100%;
     height: auto;
+}
+
+.dashboard-headline {
+    text-align: center;
+    font-weight: 400;
+    margin: 0 0 1.6rem;
+}
+
+.dashboard-main {
+    display: grid;
+    grid-template-columns: 240px 260px minmax(260px, 380px);
+    justify-content: center;
+    align-items: start;
+    gap: 2.8rem;
+}
+
+.dashboard-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-top: 3.2rem;
+}
+
+.dashboard-actions button,
+.yourprojects-panel button {
+    width: 100%;
+    border: 1px solid #d9d9d9;
+    border-radius: 12px;
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+    padding: 0.65rem 0.85rem;
+}
+
+.yourprojects-panel {
+    border: 1px solid #d9d9d9;
+    border-radius: 12px;
+    min-height: 350px;
+    padding: 0.8rem 0.9rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.yourprojects-panel h1 {
+    font-size: 1.85rem;
+    margin: 0.2rem 0 0.5rem;
+    text-align: center;
+}
+
+.searchbox-card {
+    border: 1px solid #d9d9d9;
+    border-radius: 12px;
+    padding: 0.8rem;
+    margin-top: 2.8rem;
+}
+
+.searchbox-card h2 {
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin: 0 0 0.8rem;
+}
+
+.searchbox-card input {
+    width: 100%;
+    border: 1px solid #d9d9d9;
+    border-radius: 999px;
+    background: transparent;
+    color: #fff;
+    padding: 0.5rem 0.75rem;
+}
+
+.search-results {
+    margin: 0.8rem 0 0;
+    padding-left: 1rem;
+}
+
+.search-results li {
+    margin-bottom: 0.3rem;
 }
 
 .whatisrif-overlay {
@@ -88,6 +168,57 @@
 }
 
 .createnewproject-close {
+    position: absolute;
+    top: 0.6rem;
+    right: 0.6rem;
+    border: 1px solid #d9d9d9;
+    border-radius: 8px;
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+}
+
+.addsoundbite-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.65);
+    display: grid;
+    place-items: center;
+    z-index: 20;
+}
+
+.addsoundbite-modal {
+    width: min(560px, 92vw);
+    border: 1px solid #d9d9d9;
+    border-radius: 14px;
+    background: #1d1c1c;
+    color: #fff;
+    padding: 1.4rem 1.2rem 1rem;
+    position: relative;
+    display: grid;
+    gap: 0.7rem;
+}
+
+.addsoundbite-modal input {
+    border: 1px solid #d9d9d9;
+    border-radius: 10px;
+    background: transparent;
+    color: #fff;
+    padding: 0.6rem 0.7rem;
+}
+
+.addsoundbite-modal button {
+    border: 1px solid #d9d9d9;
+    border-radius: 10px;
+    background: transparent;
+    color: #fff;
+    padding: 0.55rem 0.7rem;
+    cursor: pointer;
+}
+
+.addsoundbite-close {
     position: absolute;
     top: 0.6rem;
     right: 0.6rem;

@@ -4,31 +4,42 @@ import '../styles/RifDashboard.scss'
 import WhatIsRif from './WhatIsRif'
 import CreateNewProject from './CreateNewProject'
 import YourProjects from './YourProjects'
+import AddSoundbiteButton from './AddSoundbiteButton'
+import Searchbox from './Searchbox'
 
 const RifDashboard = () => {
   const [isWhatIsRifOpen, setIsWhatIsRifOpen] = useState(false)
   const [isCreateProjectOpen, setIsCreateProjectOpen] = useState(false)
+  const [isAddSoundbiteOpen, setIsAddSoundbiteOpen] = useState(false)
+  const registeredTitles = ['Midnight Echo', 'Project #1 Demo', 'Rif Theme v2']
 
   return (
     <div className="dashboard-page">
       <div className="brand">
         <img src={logoTransparent} alt="Rif logo" />
       </div>
+      <h2 className="dashboard-headline">Welcome back, loggedinuser. What do you wanna do today?</h2>
 
       <main className="dashboard-main">
+        <aside className="dashboard-left">
+          <YourProjects />
+        </aside>
+
         <section className="dashboard-actions">
           <button onClick={() => setIsCreateProjectOpen(true)}>Create a new project</button>
+          <button onClick={() => setIsAddSoundbiteOpen(true)}>Add soundbite to a project</button>
           <button onClick={() => setIsWhatIsRifOpen(true)}>What is Rif?</button>
         </section>
 
-        <aside className="projects-panel">
-            <YourProjects />
+        <aside className="dashboard-right">
+          <Searchbox titles={registeredTitles} />
         </aside>
       </main>
 
       <footer className="dashboard-footer">Concept & development by Ella, 2026.</footer>
 
       {isCreateProjectOpen && <CreateNewProject onClose={() => setIsCreateProjectOpen(false)} />}
+      {isAddSoundbiteOpen && <AddSoundbiteButton onClose={() => setIsAddSoundbiteOpen(false)} />}
       {isWhatIsRifOpen && <WhatIsRif onClose={() => setIsWhatIsRifOpen(false)} />}
     </div>
   )

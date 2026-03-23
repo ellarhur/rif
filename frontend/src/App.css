@@ -33,57 +33,6 @@ body {
   position: relative;
 }
 
-.brand h1,
-.brand p {
-  margin: 0;
-}
-
-.brand p {
-  font-size: 1.1rem;
-}
-
-.dashboard-main {
-  min-height: 68vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 5rem;
-}
-
-.dashboard-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.dashboard-actions button,
-.projects-panel button {
-  width: 190px;
-  border: 1px solid #d9d9d9;
-  background: transparent;
-  color: #fff;
-  border-radius: 12px;
-  padding: 0.65rem 0.9rem;
-  cursor: pointer;
-}
-
-.projects-panel {
-  width: 250px;
-  min-height: 360px;
-  border: 1px solid #d9d9d9;
-  border-radius: 12px;
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-}
-
-.projects-panel h2 {
-  margin: 0.4rem 0 0.6rem;
-  font-size: 1.5rem;
-}
-
 .dashboard-footer {
   text-align: center;
   font-size: 0.85rem;
