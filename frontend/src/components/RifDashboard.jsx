@@ -1,11 +1,12 @@
 import React from 'react'
+import logoTransparent from '../assets/logotransparent.png'
+import '../styles/RifDashboard.scss'
 
 const RifDashboard = () => {
   return (
     <div className="dashboard-page">
       <div className="brand">
-        <h1>Rif.</h1>
-        <p>Proof of creative process.</p>
+      <img src={logoTransparent} alt="Rif logo" />
       </div>
 
       <main className="dashboard-main">
