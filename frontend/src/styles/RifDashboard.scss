@@ -188,6 +188,35 @@
     cursor: pointer;
 }
 
+.createnewproject-modal button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.createnewproject-error {
+    color: #ff9f9f;
+    margin: 0.1rem 0;
+}
+
+.createnewproject-result {
+    border: 1px solid #d9d9d9;
+    border-radius: 10px;
+    padding: 0.8rem;
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.createnewproject-result h3 {
+    margin: 0 0 0.35rem;
+}
+
+.createnewproject-result p {
+    margin: 0.2rem 0;
+}
+
+.createnewproject-result a {
+    color: #cde9ff;
+}
+
 .createnewproject-close {
     position: absolute;
     top: 0.6rem;

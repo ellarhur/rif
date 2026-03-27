@@ -17,6 +17,7 @@ const AddSoundbiteButton = ({ onClose }) => {
         <p>Add a new soundbite to an existing project.</p>
         <input type="text" placeholder="Project ID" />
         <input type="text" placeholder="IPFS CID" />
+        <input type="file" />
         <input type="text" placeholder="Type (audio, lyric, note...)" />
         <input type="text" placeholder="Description" />
         <button onClick={onClose}>Cancel</button>
