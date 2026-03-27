@@ -1,0 +1,21 @@
+
+.landing-page {
+    min-height: 100vh;
+    display: grid;
+    place-content: center;
+    text-align: center;
+    background: #ECA400;
+    background: linear-gradient(326deg,rgba(236, 164, 0, 1) 8%, rgba(234, 248, 191, 1) 30%, rgba(0, 105, 146, 1) 54%, rgba(39, 71, 110, 1) 71%, rgba(0, 29, 74, 1) 91%);
+}
+
+  .landing-page button {
+    margin-top: 0.75rem;
+    border: 1px solid #d9d9d9;
+    background: transparent;
+    color: #fff;
+    border-radius: 12px;
+    padding: 0.7rem 1.2rem;
+    cursor: pointer;
+    font-family: 'Funnel Display', sans-serif;
+    font-size: 1.5rem;
+  }

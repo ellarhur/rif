@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
-import logoTransparent from '../assets/logotransparent.png'
+// import logoTransparent from '../assets/logotransparent.png'
 import '../styles/RifDashboard.scss'
 import WhatIsRif from './WhatIsRif'
 import CreateNewProject from './CreateNewProject'
 import YourProjects from './YourProjects'
 import AddSoundbiteButton from './AddSoundbiteButton'
 import Searchbox from './Searchbox'
+import Navbar from './Navbar'
 
 const RifDashboard = () => {
   const [isWhatIsRifOpen, setIsWhatIsRifOpen] = useState(false)
@@ -15,18 +16,23 @@ const RifDashboard = () => {
 
   return (
     <div className="dashboard-page">
-      <div className="brand">
-        <img src={logoTransparent} alt="Rif logo" />
-      </div>
+      <header className="dashboard-header">
+        
+        <div className="dashboard-headerInner">
+          {/* <img src={logoTransparent} alt="Rif logo" /> */}
+          <h1>Rif.</h1>
+        </div>
+        <Navbar />
+
+      </header>
       <h2 className="dashboard-headline">Welcome back, loggedinuser. What do you wanna do today?</h2>
 
       <main className="dashboard-main">
         <aside className="dashboard-left">
-          <YourProjects />
+          <YourProjects onCreateProject={() => setIsCreateProjectOpen(true)} />
         </aside>
 
         <section className="dashboard-actions">
-          <button onClick={() => setIsCreateProjectOpen(true)}>Create a new project</button>
           <button onClick={() => setIsAddSoundbiteOpen(true)}>Add soundbite to a project</button>
           <button onClick={() => setIsWhatIsRifOpen(true)}>What is Rif?</button>
         </section>

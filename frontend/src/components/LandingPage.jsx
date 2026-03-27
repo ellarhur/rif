@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import '../App.css'
+import '../styles/LogIn.scss'
 
 const LandingPage = () => {
   const [account, setAccount] = useState('')
@@ -32,7 +33,7 @@ const LandingPage = () => {
   return (
     <div className="landing-page">
       <h1>Rif</h1>
-      <h2>Proof of Creative Process</h2>
+      <p>Proof of Creative Process</p>
       <button onClick={connectWallet}>Connect Wallet to log in</button>
       {error && <p>{error}</p>}
     </div>

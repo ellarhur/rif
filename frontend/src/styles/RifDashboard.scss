@@ -1,26 +1,46 @@
 .brand {
-    display: flex;
-    width: 160px;
-    margin-bottom: 1.2rem;
+    display: none;
 }
 
-.brand img {
-    width: 100%;
-    height: auto;
+.dashboard-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    width: calc(100% + 8rem);
+    margin-left: -4rem;
+    margin-right: -4rem;
+
+    background: #ECA400;
+    background: linear-gradient(146deg, rgba(236, 164, 0, 1) 0%, rgba(234, 248, 191, 1) 18%, rgba(0, 105, 146, 1) 46%, rgba(39, 71, 110, 1) 62%, rgba(0, 29, 74, 1) 82%);
+}
+
+.dashboard-headerInner {
+    padding: 1.2rem 4rem;
+    display: flex;
+    align-items: center;
+}
+
+.dashboard-headerInner h1 {
+    margin: 0;
 }
 
 .dashboard-headline {
     text-align: center;
     font-weight: 400;
     margin: 0 0 1.6rem;
+    margin-top: 2.8rem;
+    font-size: 2.5rem;
+    
 }
 
 .dashboard-main {
+    margin-top: 2.8rem;
     display: grid;
-    grid-template-columns: 240px 260px minmax(260px, 380px);
+    grid-template-columns: 700px 700px minmax(1000px, 1000px);
     justify-content: center;
     align-items: start;
     gap: 2.8rem;
+
 }
 
 .dashboard-actions {
@@ -44,7 +64,8 @@
 .yourprojects-panel {
     border: 1px solid #d9d9d9;
     border-radius: 12px;
-    min-height: 350px;
+    min-height: 100vh;
+    min-width: 500px;
     padding: 0.8rem 0.9rem;
     display: flex;
     flex-direction: column;
