@@ -52,8 +52,8 @@ const RifDashboard = () => {
         </aside>
 
         <section className="dashboard-actions">
+          <button onClick={() => setIsCreateProjectOpen(true)}>Create a new project</button>
           <button onClick={() => setIsAddSoundbiteOpen(true)}>Add soundbite to a project</button>
-          <button onClick={() => setIsWhatIsRifOpen(true)}>What is Rif?</button>
         </section>
 
         <aside className="dashboard-right">

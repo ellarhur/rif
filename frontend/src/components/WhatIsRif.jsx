@@ -1,4 +1,5 @@
 import React from 'react'
+import '../styles/WhatIsRif.scss'
 
 const WhatIsRif = ({ onClose }) => {
   return (
