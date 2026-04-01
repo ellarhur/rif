@@ -1,12 +1,8 @@
 import React, { useState } from 'react'
 import { ethers } from 'ethers'
-
-const RIF_SEPOLIA_ADDRESS = '0x6F815D89280Cbb0dCc2C2168287492C6E82E477d'
-const SEPOLIA_CHAIN_ID = 11155111n
-const RIF_ABI = [
-  'function createProject(string title, string description) external returns (uint256)',
-  'event ProjectCreated(uint256 indexed projectId, address indexed owner, string title)',
-]
+import rifAbi from '../abi/rifAbi.json'
+import { getRifAddress } from '../config/getRifAddress'
+import { CHAIN_IDS } from '../config/contracts'
 
 const CreateNewProject = ({ onClose }) => {
   const [title, setTitle] = useState('')
@@ -37,12 +33,12 @@ const CreateNewProject = ({ onClose }) => {
 
       const signer = await provider.getSigner()
       const network = await provider.getNetwork()
-      if (network.chainId !== SEPOLIA_CHAIN_ID) {
+      if (network.chainId !== BigInt(CHAIN_IDS.sepolia)) {
         setError('Wrong network. Switch to Ethereum Sepolia and try again.')
         return
       }
 
-      const contract = new ethers.Contract(RIF_SEPOLIA_ADDRESS, RIF_ABI, signer)
+      const contract = new ethers.Contract(getRifAddress(network.chainId), rifAbi, signer)
       const tx = await contract.createProject(title.trim(), description.trim())
       const receipt = await tx.wait()
 
