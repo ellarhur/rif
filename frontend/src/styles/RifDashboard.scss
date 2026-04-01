@@ -9,19 +9,27 @@
     width: calc(100% + 8rem);
     margin-left: -4rem;
     margin-right: -4rem;
+    display: flex;
 
     background: #ECA400;
     background: linear-gradient(146deg, rgba(236, 164, 0, 1) 0%, rgba(234, 248, 191, 1) 18%, rgba(0, 105, 146, 1) 46%, rgba(39, 71, 110, 1) 62%, rgba(0, 29, 74, 1) 82%);
 }
 
 .dashboard-headerInner {
+    flex: 1;
     padding: 1.2rem 4rem;
     display: flex;
+    flex-direction: row;
     align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    min-width: 0;
+    box-sizing: border-box;
 }
 
-.dashboard-headerInner h1 {
+.dashboard-headerLogo {
     margin: 0;
+    flex-shrink: 0;
 }
 
 .dashboard-headline {

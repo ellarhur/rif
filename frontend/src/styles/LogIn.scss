@@ -19,3 +19,68 @@
     font-family: 'Funnel Display', sans-serif;
     font-size: 1.5rem;
   }
+
+  .landing-page button:disabled {
+    opacity: 0.65;
+    cursor: wait;
+  }
+
+  .landing-page__hint,
+  .landing-page__note {
+    max-width: 28rem;
+    margin: 0.5rem auto 0;
+    font-size: 1rem;
+    line-height: 1.35;
+    opacity: 0.95;
+  }
+
+  .landing-page__note {
+    margin-top: 1.25rem;
+    font-size: 0.95rem;
+    opacity: 0.9;
+  }
+
+  .landing-page__error {
+    color: #ffdede;
+    margin-top: 1rem;
+    max-width: 28rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .landing-page__wallet-picker {
+    margin-top: 1rem;
+  }
+
+  .landing-page__picker-title {
+    margin: 0 0 0.5rem;
+    font-size: 1.1rem;
+  }
+
+  .landing-page__wallet-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    justify-content: center;
+  }
+
+  .landing-page__wallet-buttons button {
+    margin-top: 0;
+  }
+
+  .landing-page__wallet-buttons--force {
+    margin-top: 0.35rem;
+  }
+
+  .landing-page__force {
+    margin-top: 0.75rem;
+    font-size: 1rem !important;
+    border-style: dashed !important;
+    opacity: 0.95;
+  }
+
+  .landing-page__force-hint {
+    margin: 1rem 0 0.25rem;
+    font-size: 0.95rem;
+    opacity: 0.9;
+  }

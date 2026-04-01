@@ -3,8 +3,10 @@ import { ethers } from 'ethers'
 import rifAbi from '../abi/rifAbi.json'
 import { getRifAddress } from '../config/getRifAddress'
 import { CHAIN_IDS } from '../config/contracts'
+import { useWallet } from '../context/WalletContext.jsx'
 
 const CreateNewProject = ({ onClose }) => {
+  const { activeProvider } = useWallet()
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [imageUrl, setImageUrl] = useState('')
@@ -21,16 +23,15 @@ const CreateNewProject = ({ onClose }) => {
       return
     }
 
-    if (!window.ethereum) {
-      setError('MetaMask hittades inte. Installera extensionen och prova igen.')
+    const eip1193 = activeProvider || window.ethereum
+    if (!eip1193) {
+      setError('Ingen wallet hittades. Logga in igen från startsidan.')
       return
     }
 
     try {
       setIsSubmitting(true)
-      const provider = new ethers.BrowserProvider(window.ethereum)
-      await provider.send('eth_requestAccounts', [])
-
+      const provider = new ethers.BrowserProvider(eip1193)
       const signer = await provider.getSigner()
       const network = await provider.getNetwork()
       if (network.chainId !== BigInt(CHAIN_IDS.sepolia)) {
