@@ -1,0 +1,67 @@
+.createnewprojectresult-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.65);
+    display: grid;
+    place-items: center;
+    z-index: 30;
+    padding: 1rem;
+}
+
+.createnewprojectresult-modal {
+    width: min(560px, 92vw);
+    max-height: 90vh;
+    overflow-y: auto;
+    box-sizing: border-box;
+    border: 1px solid #d9d9d9;
+    border-radius: 14px;
+    background: #1d1c1c;
+    color: #fff;
+    padding: 1.4rem 1.2rem 1.2rem;
+    position: relative;
+    display: grid;
+    gap: 0.7rem;
+}
+
+.createnewprojectresult-modal h3 {
+    margin: 0;
+    padding-right: 2rem;
+}
+
+.createnewprojectresult-hash {
+    word-break: break-all;
+}
+
+.createnewprojectresult-modal a {
+    color: #cde9ff;
+}
+
+.createnewprojectresult-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 0.4rem;
+}
+
+.createnewprojectresult-actions button {
+    border: 1px solid #d9d9d9;
+    border-radius: 10px;
+    background: transparent;
+    color: #fff;
+    padding: 0.55rem 0.9rem;
+    cursor: pointer;
+}
+
+.createnewprojectresult-close {
+    position: absolute;
+    top: 0.6rem;
+    right: 0.6rem;
+    border: 1px solid #d9d9d9;
+    border-radius: 8px;
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+    width: 34px;
+    height: 34px;
+    font-size: 1.25rem;
+    line-height: 1;
+}

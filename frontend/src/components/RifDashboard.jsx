@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import '../styles/RifDashboard.scss'
 import WhatIsRif from './WhatIsRif'
 import CreateNewProject from './CreateNewProject'
+import CreateNewProjectResult from './CreateNewProjectResult'
 import YourProjects from './YourProjects'
 import AddSoundbiteButton from './AddSoundbiteButton'
 import Searchbox from './Searchbox'
@@ -21,8 +22,9 @@ const RifDashboard = () => {
   const [isWhatIsRifOpen, setIsWhatIsRifOpen] = useState(false)
   const [isCreateProjectOpen, setIsCreateProjectOpen] = useState(false)
   const [isAddSoundbiteOpen, setIsAddSoundbiteOpen] = useState(false)
-  const registeredTitles = ['Midnight Echo', 'Project #1 Demo', 'Rif Theme v2']
-
+  const [projectsRefreshKey, setProjectsRefreshKey] = useState(0)
+  const [createResult, setCreateResult] = useState(null)
+  
   useEffect(() => {
     if (!account) {
       navigate('/', { replace: true })
@@ -48,22 +50,40 @@ const RifDashboard = () => {
 
       <main className="dashboard-main">
         <aside className="dashboard-left">
-          <YourProjects onCreateProject={() => setIsCreateProjectOpen(true)} />
+          <YourProjects refreshKey={projectsRefreshKey} />
         </aside>
 
-        <section className="dashboard-actions">
-          <button onClick={() => setIsCreateProjectOpen(true)}>Create a new project</button>
-          <button onClick={() => setIsAddSoundbiteOpen(true)}>Add soundbite to a project</button>
-        </section>
-
         <aside className="dashboard-right">
-          <Searchbox titles={registeredTitles} />
+          <div className="dashboard-right-actions">
+            <button type="button" onClick={() => setIsCreateProjectOpen(true)}>
+              Create a new project
+            </button>
+            <button type="button" onClick={() => setIsAddSoundbiteOpen(true)}>
+              Add soundbite to a project
+            </button>
+          </div>
+          <Searchbox />
         </aside>
       </main>
 
       <footer className="dashboard-footer">Concept & development by Ella, 2026.</footer>
 
-      {isCreateProjectOpen && <CreateNewProject onClose={() => setIsCreateProjectOpen(false)} />}
+      {isCreateProjectOpen && (
+        <CreateNewProject
+          onClose={() => setIsCreateProjectOpen(false)}
+          onCreated={(result) => {
+            setIsCreateProjectOpen(false)
+            setCreateResult(result)
+          }}
+          onSuccess={() => setProjectsRefreshKey((k) => k + 1)}
+        />
+      )}
+      {createResult && (
+        <CreateNewProjectResult
+          result={createResult}
+          onClose={() => setCreateResult(null)}
+        />
+      )}
       {isAddSoundbiteOpen && <AddSoundbiteButton onClose={() => setIsAddSoundbiteOpen(false)} />}
       {isWhatIsRifOpen && <WhatIsRif onClose={() => setIsWhatIsRifOpen(false)} />}
     </div>

@@ -4,19 +4,20 @@ import rifAbi from '../abi/rifAbi.json'
 import { getRifAddress } from '../config/getRifAddress'
 import { CHAIN_IDS } from '../config/contracts'
 import { useWallet } from '../context/WalletContext.jsx'
+import { saveProjectCreation } from '../utils/rifProjectRecords'
+import { getWalletChainId, isEthereumSepolia, switchToEthereumSepolia } from '../utils/rifChain'
+import '../styles/CreateNewProject.scss'
 
-const CreateNewProject = ({ onClose }) => {
+const CreateNewProject = ({ onClose, onSuccess, onCreated }) => {
   const { activeProvider } = useWallet()
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [imageUrl, setImageUrl] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState('')
-  const [result, setResult] = useState(null)
 
   const handleCreateProject = async () => {
     setError('')
-    setResult(null)
 
     if (!title.trim()) {
       setError('Project title is required.')
@@ -29,18 +30,33 @@ const CreateNewProject = ({ onClose }) => {
       return
     }
 
+    const titleTrimmed = title.trim()
+    const descriptionTrimmed = description.trim()
+
     try {
       setIsSubmitting(true)
       const provider = new ethers.BrowserProvider(eip1193)
       const signer = await provider.getSigner()
-      const network = await provider.getNetwork()
-      if (network.chainId !== BigInt(CHAIN_IDS.sepolia)) {
-        setError('Wrong network. Switch to Ethereum Sepolia and try again.')
-        return
+      const userAddress = await signer.getAddress()
+      let chainId = await getWalletChainId(eip1193)
+      if (!isEthereumSepolia(chainId)) {
+        const switched = await switchToEthereumSepolia(eip1193)
+        if (!switched.ok) {
+          setError(
+            switched.message ||
+              `Fel nätverk (chainId ${chainId}). Byt till Ethereum Sepolia (${CHAIN_IDS.sepolia}) i MetaMask.`
+          )
+          return
+        }
+        chainId = await getWalletChainId(eip1193)
+        if (!isEthereumSepolia(chainId)) {
+          setError(`Fortfarande fel nätverk (chainId ${chainId}). Välj Ethereum Sepolia, inte Base Sepolia.`)
+          return
+        }
       }
 
-      const contract = new ethers.Contract(getRifAddress(network.chainId), rifAbi, signer)
-      const tx = await contract.createProject(title.trim(), description.trim())
+      const contract = new ethers.Contract(getRifAddress(Number(CHAIN_IDS.sepolia)), rifAbi, signer)
+      const tx = await contract.createProject(titleTrimmed, descriptionTrimmed)
       const receipt = await tx.wait()
 
       let projectId = null
@@ -56,15 +72,26 @@ const CreateNewProject = ({ onClose }) => {
         }
       }
 
-      setResult({
+      onCreated?.({
         projectId: projectId ?? 'Unknown',
         txHash: tx.hash,
         etherscanUrl: `https://sepolia.etherscan.io/tx/${tx.hash}`,
       })
 
+      if (projectId != null && projectId !== 'Unknown') {
+        saveProjectCreation(userAddress, {
+          projectId,
+          txHash: tx.hash,
+          title: titleTrimmed,
+          description: descriptionTrimmed,
+        })
+        onSuccess?.()
+      }
+
       setTitle('')
       setDescription('')
       setImageUrl('')
+      onClose?.()
     } catch (createError) {
       setError(createError?.shortMessage || createError?.message || 'Transaction failed.')
     } finally {
@@ -106,17 +133,6 @@ const CreateNewProject = ({ onClose }) => {
         />
 
         {error && <p className="createnewproject-error">{error}</p>}
-        {result && (
-          <div className="createnewproject-result">
-            <h3>Project created</h3>
-            <p>Project ID: {result.projectId}</p>
-            <p>Hash: {result.txHash}</p>
-            <p>Your project is now published on the blockchain.</p>
-            <a href={result.etherscanUrl} target="_blank" rel="noreferrer">
-              View on Sepolia Etherscan
-            </a>
-          </div>
-        )}
 
         <button onClick={onClose}>Cancel</button>
         <button onClick={handleCreateProject} disabled={isSubmitting}>
