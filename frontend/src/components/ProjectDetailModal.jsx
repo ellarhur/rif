@@ -145,7 +145,16 @@ const ProjectDetailModal = ({ project, activeProvider, refreshKey, onClose }) =>
                 <strong>#{s.id}</strong> · {s.soundbiteType || '—'}
                 {s.description ? ` — ${s.description}` : ''}
                 <br />
-                <span className="projectdetail-cid">IPFS CID: {s.ipfsCid || '—'}</span>
+                <span className="projectdetail-cid">
+                  IPFS CID:{' '}
+                  {s.ipfsCid ? (
+                    <a href={`https://gateway.pinata.cloud/ipfs/${s.ipfsCid}`} target="_blank" rel="noreferrer">
+                      {s.ipfsCid}
+                    </a>
+                  ) : (
+                    '—'
+                  )}
+                </span>
                 <br />
                 <span className="projectdetail-muted">
                   {formatTs(s.timestamp)} · {s.author?.slice(0, 10)}…

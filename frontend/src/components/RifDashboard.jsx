@@ -16,7 +16,6 @@ function shortAddress(addr) {
   if (!addr || addr.length < 10) return addr
   return `${addr.slice(0, 6)}…${addr.slice(-4)}`
 }
-
 const RifDashboard = () => {
   const navigate = useNavigate()
   const { account } = useWallet()
@@ -89,7 +88,10 @@ const RifDashboard = () => {
         <AddSoundbiteButton
           onClose={() => setIsAddSoundbiteOpen(false)}
           onSave={(payload) => {
-            saveLocalSoundbite(account, payload)
+            // Spara lokalt också (bra som "draft/logg"), men on-chain sker i modalen.
+            if (payload?.date && payload?.projectId && payload?.description) {
+              saveLocalSoundbite(account, payload)
+            }
             setProjectsRefreshKey((k) => k + 1)
           }}
         />
