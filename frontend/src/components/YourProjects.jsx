@@ -87,7 +87,7 @@ const YourProjects = ({ refreshKey = 0 }) => {
 
   return (
     <div className="yourprojects-panel">
-      <h1>Your projects</h1>
+      <h1>Dina projekt</h1>
       {loading && <p className="yourprojects-panel__status">Laddar projekt…</p>}
       {!loading && error && (
         <>
