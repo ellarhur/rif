@@ -233,6 +233,28 @@
     word-break: break-all;
 }
 
+.projectdetail-audioplayer {
+    margin: 0.6rem 0 0.4rem;
+    display: grid;
+    gap: 0.3rem;
+
+    audio {
+        width: 100%;
+        border-radius: 8px;
+        accent-color: #cde9ff;
+    }
+}
+
+.projectdetail-filename {
+    font-size: 0.85rem;
+    opacity: 0.75;
+}
+
+.projectdetail-loading {
+    margin: 0.4rem 0 0.2rem;
+    font-size: 0.85rem;
+}
+
 .projectdetail-close {
     position: absolute;
     top: 0.6rem;

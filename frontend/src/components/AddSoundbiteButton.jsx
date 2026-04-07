@@ -186,7 +186,7 @@ const AddSoundbiteButton = ({ onClose, onSave }) => {
         txHash: tx.hash,
         etherscanUrl: `https://sepolia.etherscan.io/tx/${tx.hash}`,
         ipfsCid: metaUpload.cid,
-        ipfsUrl: `https://nftstorage.link/ipfs/${metaUpload.cid}`,
+        ipfsUrl: `https://gateway.pinata.cloud/ipfs/${metaUpload.cid}`,
       })
 
       onSave?.({

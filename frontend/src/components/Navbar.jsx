@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import '../styles/Navbar.scss'
-import { useState } from 'react'
+import WhatIsRif from './WhatIsRif'
+import { useWallet } from '../context/WalletContext.jsx'
 
 const Navbar = () => {
+    const navigate = useNavigate()
+    const { disconnect } = useWallet()
     const [isWhatIsRifOpen, setIsWhatIsRifOpen] = useState(false)
     if (isWhatIsRifOpen) {
         return <WhatIsRif onClose={() => setIsWhatIsRifOpen(false)} />
@@ -11,11 +15,9 @@ const Navbar = () => {
   return (
     <nav className="navbar" aria-label="Main">
       <ul className="navbar-list">
-        <li className="navbar-item">Home</li>
-        <li className="navbar-item">Create</li>
-        <li className="navbar-item">Add</li>
+        <li className="navbar-item" onClick={() => navigate('/dashboard')}>Home</li>
         <li className="navbar-item" onClick={() => setIsWhatIsRifOpen(true)}>What is rif?</li>
-        <li className="navbar-item">Log out</li>
+        <li className="navbar-item" onClick={() => { disconnect(); navigate('/') }}>Log out</li>
 
       </ul>
     </nav>

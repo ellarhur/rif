@@ -12,7 +12,6 @@ const CreateNewProject = ({ onClose, onSuccess, onCreated }) => {
   const { activeProvider } = useWallet()
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
-  const [imageUrl, setImageUrl] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState('')
 
@@ -90,7 +89,6 @@ const CreateNewProject = ({ onClose, onSuccess, onCreated }) => {
 
       setTitle('')
       setDescription('')
-      setImageUrl('')
       onClose?.()
     } catch (createError) {
       setError(createError?.shortMessage || createError?.message || 'Transaction failed.')
@@ -125,13 +123,6 @@ const CreateNewProject = ({ onClose, onSuccess, onCreated }) => {
           value={description}
           onChange={(event) => setDescription(event.target.value)}
         />
-        <input
-          type="text"
-          placeholder="Project Image URL"
-          value={imageUrl}
-          onChange={(event) => setImageUrl(event.target.value)}
-        />
-
         {error && <p className="createnewproject-error">{error}</p>}
 
         <button onClick={onClose}>Cancel</button>

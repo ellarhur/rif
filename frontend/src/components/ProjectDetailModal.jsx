@@ -3,6 +3,8 @@ import { getRifReadOnlyContract } from '../utils/rifContractRead'
 import { getLocalSoundbites } from '../utils/rifSoundbiteRecords'
 import { useWallet } from '../context/WalletContext.jsx'
 
+const IPFS_GATEWAY = 'https://gateway.pinata.cloud/ipfs'
+
 function formatTs(ts) {
   try {
     const n = typeof ts === 'bigint' ? Number(ts) : Number(ts)
@@ -22,6 +24,73 @@ function formatIsoDate(iso) {
   } catch {
     return iso
   }
+}
+
+async function fetchSoundbiteMetadata(metadataCid) {
+  try {
+    const res = await fetch(`${IPFS_GATEWAY}/${metadataCid}`)
+    if (!res.ok) return null
+    return await res.json()
+  } catch {
+    return null
+  }
+}
+
+function SoundbitePlayer({ soundbite }) {
+  const [meta, setMeta] = useState(null)
+  const [fetching, setFetching] = useState(true)
+
+  useEffect(() => {
+    if (!soundbite.ipfsCid) {
+      setFetching(false)
+      return
+    }
+    fetchSoundbiteMetadata(soundbite.ipfsCid).then((data) => {
+      setMeta(data)
+      setFetching(false)
+    })
+  }, [soundbite.ipfsCid])
+
+  const isAudio = meta?.file?.type?.startsWith('audio/')
+  const audioUrl = isAudio ? `${IPFS_GATEWAY}/${meta.file.cid}` : null
+
+  return (
+    <li className="projectdetail-soundbite-item">
+      <strong>#{soundbite.id}</strong> · {soundbite.soundbiteType || '—'}
+      {soundbite.description ? ` — ${soundbite.description}` : ''}
+
+      {fetching && (
+        <p className="projectdetail-muted projectdetail-loading">Laddar fil…</p>
+      )}
+
+      {!fetching && audioUrl && (
+        <div className="projectdetail-audioplayer">
+          {meta?.file?.name && (
+            <span className="projectdetail-filename">{meta.file.name}</span>
+          )}
+          <audio controls src={audioUrl} preload="metadata">
+            Din webbläsare stöder inte audio-uppspelning.
+          </audio>
+        </div>
+      )}
+
+      <br />
+      <span className="projectdetail-cid">
+        IPFS CID:{' '}
+        {soundbite.ipfsCid ? (
+          <a href={`${IPFS_GATEWAY}/${soundbite.ipfsCid}`} target="_blank" rel="noreferrer">
+            {soundbite.ipfsCid}
+          </a>
+        ) : (
+          '—'
+        )}
+      </span>
+      <br />
+      <span className="projectdetail-muted">
+        {formatTs(soundbite.timestamp)} · {soundbite.author?.slice(0, 10)}…
+      </span>
+    </li>
+  )
 }
 
 const ProjectDetailModal = ({ project, activeProvider, refreshKey, onClose }) => {
@@ -124,9 +193,7 @@ const ProjectDetailModal = ({ project, activeProvider, refreshKey, onClose }) =>
         )}
         {!loading && !error && localSoundbites.length > 0 && (
           <>
-            <p className="projectdetail-muted">
-              Lokala soundbites (ej publicerade än)
-            </p>
+            <p className="projectdetail-muted">Lokala soundbites (ej publicerade än)</p>
             <ul className="projectdetail-soundbite-list">
               {localSoundbites.map((s) => (
                 <li key={s.id} className="projectdetail-soundbite-item">
@@ -141,25 +208,7 @@ const ProjectDetailModal = ({ project, activeProvider, refreshKey, onClose }) =>
         {!loading && soundbites.length > 0 && (
           <ul className="projectdetail-soundbite-list">
             {soundbites.map((s) => (
-              <li key={s.id} className="projectdetail-soundbite-item">
-                <strong>#{s.id}</strong> · {s.soundbiteType || '—'}
-                {s.description ? ` — ${s.description}` : ''}
-                <br />
-                <span className="projectdetail-cid">
-                  IPFS CID:{' '}
-                  {s.ipfsCid ? (
-                    <a href={`https://gateway.pinata.cloud/ipfs/${s.ipfsCid}`} target="_blank" rel="noreferrer">
-                      {s.ipfsCid}
-                    </a>
-                  ) : (
-                    '—'
-                  )}
-                </span>
-                <br />
-                <span className="projectdetail-muted">
-                  {formatTs(s.timestamp)} · {s.author?.slice(0, 10)}…
-                </span>
-              </li>
+              <SoundbitePlayer key={s.id} soundbite={s} />
             ))}
           </ul>
         )}

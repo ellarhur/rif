@@ -3,8 +3,6 @@ pragma solidity ^0.8.24;
 
 contract Rif {
 
-    // ─── Structs ──────────────────────────────────────────────────────────────
-
     struct Project {
         uint256 id;
         address owner;
@@ -18,13 +16,11 @@ contract Rif {
         uint256 id;
         uint256 projectId;
         address author;
-        string ipfsCid;       // CID pointing to metadata + file on IPFS
-        string SoundbiteType;   // "audio" | "lyric" | "chord" | "note" | "other"
+        string ipfsCid;      
+        string SoundbiteType;
         string description;
         uint256 timestamp;
     }
-
-    // ─── State ────────────────────────────────────────────────────────────────
 
     uint256 private _projectCounter;
     uint256 private _SoundbiteCounter;
@@ -34,12 +30,8 @@ contract Rif {
     mapping(address => uint256[]) public ownerProjects;
     mapping(uint256 => uint256[]) public projectSoundbites;
 
-    // ─── Events ───────────────────────────────────────────────────────────────
-
     event ProjectCreated(uint256 indexed projectId, address indexed owner, string title);
     event SoundbiteAdded(uint256 indexed SoundbiteId, uint256 indexed projectId, address indexed author, string ipfsCid);
-
-    // ─── Modifiers ────────────────────────────────────────────────────────────
 
     modifier projectExists(uint256 projectId) {
         require(projects[projectId].exists, "Project does not exist");
@@ -50,8 +42,6 @@ contract Rif {
         require(projects[projectId].owner == msg.sender, "Not project owner");
         _;
     }
-
-    // ─── Functions ────────────────────────────────────────────────────────────
 
     function createProject(string calldata title, string calldata description)
         external
@@ -83,6 +73,7 @@ contract Rif {
     )
         external
         projectExists(projectId)
+        onlyProjectOwner(projectId)
         returns (uint256)
     {
         require(bytes(ipfsCid).length > 0, "CID required");
