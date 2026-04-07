@@ -7,7 +7,6 @@ import CreateNewProject from './CreateNewProject'
 import CreateNewProjectResult from './CreateNewProjectResult'
 import YourProjects from './YourProjects'
 import AddSoundbiteButton from './AddSoundbiteButton'
-import Searchbox from './Searchbox'
 import Navbar from './Navbar'
 import { useWallet } from '../context/WalletContext.jsx'
 import { saveLocalSoundbite } from '../utils/rifSoundbiteRecords'
@@ -62,7 +61,6 @@ const RifDashboard = () => {
               Add soundbite to a project
             </button>
           </div>
-          <Searchbox />
         </aside>
       </main>
 
