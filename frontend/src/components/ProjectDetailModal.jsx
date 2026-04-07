@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { getRifReadOnlyContract } from '../utils/rifContractRead'
+import { getLocalSoundbites } from '../utils/rifSoundbiteRecords'
+import { useWallet } from '../context/WalletContext.jsx'
 
 function formatTs(ts) {
   try {
@@ -11,8 +13,21 @@ function formatTs(ts) {
   }
 }
 
+function formatIsoDate(iso) {
+  if (!iso) return '—'
+  try {
+    const d = new Date(`${iso}T00:00:00`)
+    if (Number.isNaN(d.getTime())) return iso
+    return d.toLocaleDateString()
+  } catch {
+    return iso
+  }
+}
+
 const ProjectDetailModal = ({ project, activeProvider, refreshKey, onClose }) => {
+  const { account } = useWallet()
   const [soundbites, setSoundbites] = useState([])
+  const [localSoundbites, setLocalSoundbites] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
 
@@ -22,6 +37,7 @@ const ProjectDetailModal = ({ project, activeProvider, refreshKey, onClose }) =>
       setError('')
       setLoading(true)
       setSoundbites([])
+      setLocalSoundbites([])
       const eip1193 = activeProvider || window.ethereum
       if (!eip1193 || !project?.id) {
         setLoading(false)
@@ -46,7 +62,10 @@ const ProjectDetailModal = ({ project, activeProvider, refreshKey, onClose }) =>
             author: s.author,
           })
         }
-        if (!cancelled) setSoundbites(list)
+        if (!cancelled) {
+          setSoundbites(list)
+          setLocalSoundbites(getLocalSoundbites(account, project.id))
+        }
       } catch (e) {
         if (!cancelled) setError(e?.shortMessage || e?.message || 'Kunde inte läsa soundbites.')
       } finally {
@@ -57,7 +76,7 @@ const ProjectDetailModal = ({ project, activeProvider, refreshKey, onClose }) =>
     return () => {
       cancelled = true
     }
-  }, [project?.id, activeProvider, refreshKey])
+  }, [project?.id, activeProvider, refreshKey, account])
 
   if (!project) return null
 
@@ -100,8 +119,24 @@ const ProjectDetailModal = ({ project, activeProvider, refreshKey, onClose }) =>
         <h3 className="projectdetail-soundbites-title">Soundbites</h3>
         {loading && <p className="projectdetail-muted">Laddar…</p>}
         {error && <p className="projectdetail-error">{error}</p>}
-        {!loading && !error && soundbites.length === 0 && (
+        {!loading && !error && soundbites.length === 0 && localSoundbites.length === 0 && (
           <p className="projectdetail-muted">Inga soundbites i det här projektet än.</p>
+        )}
+        {!loading && !error && localSoundbites.length > 0 && (
+          <>
+            <p className="projectdetail-muted">
+              Lokala soundbites (ej publicerade än)
+            </p>
+            <ul className="projectdetail-soundbite-list">
+              {localSoundbites.map((s) => (
+                <li key={s.id} className="projectdetail-soundbite-item">
+                  <strong>Draft</strong>
+                  {s.date ? ` · ${formatIsoDate(s.date)}` : ''}
+                  {s.description ? ` — ${s.description}` : ''}
+                </li>
+              ))}
+            </ul>
+          </>
         )}
         {!loading && soundbites.length > 0 && (
           <ul className="projectdetail-soundbite-list">

@@ -10,6 +10,7 @@ import AddSoundbiteButton from './AddSoundbiteButton'
 import Searchbox from './Searchbox'
 import Navbar from './Navbar'
 import { useWallet } from '../context/WalletContext.jsx'
+import { saveLocalSoundbite } from '../utils/rifSoundbiteRecords'
 
 function shortAddress(addr) {
   if (!addr || addr.length < 10) return addr
@@ -84,7 +85,15 @@ const RifDashboard = () => {
           onClose={() => setCreateResult(null)}
         />
       )}
-      {isAddSoundbiteOpen && <AddSoundbiteButton onClose={() => setIsAddSoundbiteOpen(false)} />}
+      {isAddSoundbiteOpen && (
+        <AddSoundbiteButton
+          onClose={() => setIsAddSoundbiteOpen(false)}
+          onSave={(payload) => {
+            saveLocalSoundbite(account, payload)
+            setProjectsRefreshKey((k) => k + 1)
+          }}
+        />
+      )}
       {isWhatIsRifOpen && <WhatIsRif onClose={() => setIsWhatIsRifOpen(false)} />}
     </div>
   )
