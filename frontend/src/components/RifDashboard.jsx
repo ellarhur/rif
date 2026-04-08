@@ -11,10 +11,6 @@ import Navbar from './Navbar'
 import { useWallet } from '../context/useWallet.js'
 import { saveLocalSoundbite } from '../utils/rifSoundbiteRecords'
 
-function shortAddress(addr) {
-  if (!addr || addr.length < 10) return addr
-  return `${addr.slice(0, 6)}…${addr.slice(-4)}`
-}
 const RifDashboard = () => {
   const navigate = useNavigate()
   const { account } = useWallet()

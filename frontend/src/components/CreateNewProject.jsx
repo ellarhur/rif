@@ -3,13 +3,11 @@ import { ethers } from 'ethers'
 import rifAbi from '../abi/rifAbi.json'
 import { getRifAddress } from '../config/getRifAddress'
 import { CHAIN_IDS } from '../config/contracts'
-import { useWallet } from '../context/useWallet.js'
 import { saveProjectCreation } from '../utils/rifProjectRecords'
 import { getWalletChainId, isEthereumSepolia, switchToEthereumSepolia } from '../utils/rifChain'
 import '../styles/CreateNewProject.scss'
 
 const CreateNewProject = ({ onClose, onSuccess, onCreated }) => {
-  const { account } = useWallet()
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
