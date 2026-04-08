@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { ethers } from 'ethers'
 import '../styles/AddSoundbite.scss'
-import { useWallet } from '../context/WalletContext.jsx'
+import { useWallet } from '../context/useWallet.js'
 import { getRifReadOnlyContract } from '../utils/rifContractRead'
 import { CHAIN_IDS } from '../config/contracts'
 import { getWalletChainId, isEthereumSepolia, switchToEthereumSepolia } from '../utils/rifChain'
@@ -22,7 +22,7 @@ function todayIsoDate() {
 }
 
 const AddSoundbiteButton = ({ onClose, onSave }) => {
-  const { account, activeProvider } = useWallet()
+  const { account } = useWallet()
   const [projects, setProjects] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
@@ -46,7 +46,7 @@ const AddSoundbiteButton = ({ onClose, onSave }) => {
     setError('')
     setWrongChainId(null)
     setLoading(true)
-    const eip1193 = activeProvider || window.ethereum
+    const eip1193 = window.ethereum
     if (!eip1193 || !account) {
       setProjects([])
       setLoading(false)
@@ -86,14 +86,14 @@ const AddSoundbiteButton = ({ onClose, onSave }) => {
     } finally {
       setLoading(false)
     }
-  }, [account, activeProvider, selectedProjectId])
+  }, [account, selectedProjectId])
 
   useEffect(() => {
     void loadProjects()
   }, [loadProjects])
 
   const handleSwitchSepolia = async () => {
-    const eip1193 = activeProvider || window.ethereum
+    const eip1193 = window.ethereum
     if (!eip1193) return
     setSwitchBusy(true)
     setError('')
@@ -133,7 +133,7 @@ const AddSoundbiteButton = ({ onClose, onSave }) => {
       return
     }
 
-    const eip1193 = activeProvider || window.ethereum
+    const eip1193 = window.ethereum
     if (!eip1193) {
       setError('Ingen wallet hittades. Logga in igen från startsidan.')
       return
@@ -221,8 +221,8 @@ const AddSoundbiteButton = ({ onClose, onSave }) => {
         <button type="button" className="addsoundbite-close" onClick={onClose} aria-label="Close modal">
           ×
         </button>
-        <h1 id="addsoundbite-title">Add Soundbite</h1>
-        <p>Lägg till en soundbite (datum + beskrivning) till ett av dina projekt.</p>
+        <h1 id="addsoundbite-title">Lägg till Soundbite</h1>
+        <p>Lägg till en soundbite i något av dina projekt: en fil som får illustrera vart din kreativa process är i nuläget.</p>
 
         {loading && <p>Laddar projekt…</p>}
         {!loading && error && (

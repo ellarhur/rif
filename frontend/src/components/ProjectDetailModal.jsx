@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { getRifReadOnlyContract } from '../utils/rifContractRead'
 import { getLocalSoundbites } from '../utils/rifSoundbiteRecords'
-import { useWallet } from '../context/WalletContext.jsx'
+import { useWallet } from '../context/useWallet.js'
 
 const IPFS_GATEWAY = 'https://gateway.pinata.cloud/ipfs'
 
@@ -93,7 +93,7 @@ function SoundbitePlayer({ soundbite }) {
   )
 }
 
-const ProjectDetailModal = ({ project, activeProvider, refreshKey, onClose }) => {
+const ProjectDetailModal = ({ project, refreshKey, onClose }) => {
   const { account } = useWallet()
   const [soundbites, setSoundbites] = useState([])
   const [localSoundbites, setLocalSoundbites] = useState([])
@@ -107,7 +107,7 @@ const ProjectDetailModal = ({ project, activeProvider, refreshKey, onClose }) =>
       setLoading(true)
       setSoundbites([])
       setLocalSoundbites([])
-      const eip1193 = activeProvider || window.ethereum
+      const eip1193 = window.ethereum
       if (!eip1193 || !project?.id) {
         setLoading(false)
         return
@@ -145,7 +145,7 @@ const ProjectDetailModal = ({ project, activeProvider, refreshKey, onClose }) =>
     return () => {
       cancelled = true
     }
-  }, [project?.id, activeProvider, refreshKey, account])
+  }, [project?.id, refreshKey, account])
 
   if (!project) return null
 
@@ -176,7 +176,7 @@ const ProjectDetailModal = ({ project, activeProvider, refreshKey, onClose }) =>
         {txUrl ? (
           <p className="projectdetail-tx">
             <a href={txUrl} target="_blank" rel="noreferrer">
-              Skapa-projekt-transaktion på Sepolia Etherscan
+              Sepolia Etherscan - Visa transaktion
             </a>
           </p>
         ) : (
@@ -190,20 +190,6 @@ const ProjectDetailModal = ({ project, activeProvider, refreshKey, onClose }) =>
         {error && <p className="projectdetail-error">{error}</p>}
         {!loading && !error && soundbites.length === 0 && localSoundbites.length === 0 && (
           <p className="projectdetail-muted">Inga soundbites i det här projektet än.</p>
-        )}
-        {!loading && !error && localSoundbites.length > 0 && (
-          <>
-            <p className="projectdetail-muted">Lokala soundbites (ej publicerade än)</p>
-            <ul className="projectdetail-soundbite-list">
-              {localSoundbites.map((s) => (
-                <li key={s.id} className="projectdetail-soundbite-item">
-                  <strong>Draft</strong>
-                  {s.date ? ` · ${formatIsoDate(s.date)}` : ''}
-                  {s.description ? ` — ${s.description}` : ''}
-                </li>
-              ))}
-            </ul>
-          </>
         )}
         {!loading && soundbites.length > 0 && (
           <ul className="projectdetail-soundbite-list">

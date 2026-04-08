@@ -117,11 +117,11 @@
     position: absolute;
     top: 0.6rem;
     right: 0.6rem;
-    border: 1px solid #d9d9d9;
-    border-radius: 8px;
+    border: none;
     background: transparent;
     color: #fff;
     cursor: pointer;
-    width: 30px;
-    height: 30px;
+    font-size: 1.4rem;
+    line-height: 1;
+    padding: 0.2rem 0.4rem;
 }

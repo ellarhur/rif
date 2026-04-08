@@ -1,122 +1,54 @@
-import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
-
-const WalletContext = createContext(null)
-
-export function labelForProvider(provider, index) {
-  if (provider.isRabby) return 'Rabby'
-  if (provider.isCoinbaseWallet) return 'Coinbase Wallet'
-  if (provider.isBraveWallet) return 'Brave Wallet'
-  if (provider.isMetaMask) return 'MetaMask'
-  return `Wallet ${index + 1}`
-}
-
-function collectEip1193Providers() {
-  const { ethereum } = window
-  if (!ethereum) return []
-  if (Array.isArray(ethereum.providers) && ethereum.providers.length > 0) {
-    return [...ethereum.providers]
-  }
-  return [ethereum]
-}
+import React, { useState } from 'react'
+import { WalletContext } from './walletContext.js'
 
 export function WalletProvider({ children }) {
-  const [availableProviders, setAvailableProviders] = useState([])
-  const [activeProvider, setActiveProvider] = useState(null)
   const [account, setAccount] = useState('')
   const [isConnecting, setIsConnecting] = useState(false)
   const [connectError, setConnectError] = useState('')
 
-  useEffect(() => {
-    setAvailableProviders(collectEip1193Providers())
-  }, [])
-
-  const connectWithProvider = useCallback(async (eip1193, { forcePermissionPrompt = false } = {}) => {
+  async function connectMetaMask() {
     setConnectError('')
-    if (!eip1193) {
-      setConnectError('Ingen wallet hittades.')
-      return
-    }
     setIsConnecting(true)
+
     try {
-      if (forcePermissionPrompt) {
-        try {
-          await eip1193.request({
-            method: 'wallet_revokePermissions',
-            params: [{ eth_accounts: {} }],
-          })
-        } catch {
-          // Vissa wallets saknar revoke — fortsätt ändå.
-        }
+      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+      setAccount(accounts[0])
+    } catch (error) {
+      if (error.code === 4001) {
+        setConnectError('Du avvisade anslutningen i MetaMask.')
+      } else {
+        setConnectError('Något gick fel vid anslutningen.')
       }
-
-      try {
-        await eip1193.request({
-          method: 'wallet_requestPermissions',
-          params: [{ eth_accounts: {} }],
-        })
-      } catch (permErr) {
-        if (permErr?.code === 4001) {
-          setConnectError('Du avvisade anslutningen i wallet.')
-          return
-        }
-        // -32601 m.m. = metoden finns inte, använd klassisk väg nedan.
-      }
-
-      let accounts = await eip1193.request({ method: 'eth_accounts' })
-      if (!accounts?.length) {
-        accounts = await eip1193.request({ method: 'eth_requestAccounts' })
-      }
-
-      const address = accounts?.[0] ?? ''
-      if (!address) {
-        setConnectError('Ingen adress returnerades från wallet.')
-        return
-      }
-      setActiveProvider(eip1193)
-      setAccount(address)
-    } catch {
-      setConnectError('Wallet-anslutning avbröts eller misslyckades.')
-    } finally {
-      setIsConnecting(false)
     }
-  }, [])
 
-  const disconnect = useCallback(() => {
+    setIsConnecting(false)
+  }
+
+  async function disconnect() {
+    try {
+      await window.ethereum.request({
+        method: 'wallet_revokePermissions',
+        params: [{ eth_accounts: {} }],
+      })
+    } catch {
+      // Vissa versioner av MetaMask stöder inte revoke – fortsätt ändå.
+    }
     setAccount('')
-    setActiveProvider(null)
     setConnectError('')
-  }, [])
+  }
 
-  const value = useMemo(
-    () => ({
+  return (
+    <WalletContext.Provider value={{
       account,
-      activeProvider,
-      availableProviders,
       isConnecting,
       connectError,
       setConnectError,
-      connectWithProvider,
+      connectMetaMask,
       disconnect,
-      hasInjectedWallet: availableProviders.length > 0,
-    }),
-    [
-      account,
-      activeProvider,
-      availableProviders,
-      isConnecting,
-      connectError,
-      connectWithProvider,
-      disconnect,
-    ]
+      hasMetaMask: Boolean(window.ethereum?.isMetaMask),
+    }}>
+      {children}
+    </WalletContext.Provider>
   )
-
-  return <WalletContext.Provider value={value}>{children}</WalletContext.Provider>
 }
 
-export function useWallet() {
-  const ctx = useContext(WalletContext)
-  if (!ctx) {
-    throw new Error('useWallet måste användas inuti WalletProvider')
-  }
-  return ctx
-}

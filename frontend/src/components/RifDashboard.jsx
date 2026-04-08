@@ -8,7 +8,7 @@ import CreateNewProjectResult from './CreateNewProjectResult'
 import YourProjects from './YourProjects'
 import AddSoundbiteButton from './AddSoundbiteButton'
 import Navbar from './Navbar'
-import { useWallet } from '../context/WalletContext.jsx'
+import { useWallet } from '../context/useWallet.js'
 import { saveLocalSoundbite } from '../utils/rifSoundbiteRecords'
 
 function shortAddress(addr) {
@@ -43,28 +43,29 @@ const RifDashboard = () => {
           <Navbar />
         </div>
       </header>
-      <h2 className="dashboard-headline">
-        Welcome back, {shortAddress(account)}. What do you wanna do today?
-      </h2>
+      <div className="dashboard-card">
+        <h2 className="dashboard-headline">
+         Hej! Skapa något kreativt.
+        </h2>
 
-      <main className="dashboard-main">
-        <aside className="dashboard-left">
-          <YourProjects refreshKey={projectsRefreshKey} />
-        </aside>
+        <main className="dashboard-main">
+          <aside className="dashboard-left">
+            <YourProjects refreshKey={projectsRefreshKey} />
+          </aside>
 
-        <aside className="dashboard-right">
-          <div className="dashboard-right-actions">
-            <button type="button" onClick={() => setIsCreateProjectOpen(true)}>
-              Create a new project
-            </button>
-            <button type="button" onClick={() => setIsAddSoundbiteOpen(true)}>
-              Add soundbite to a project
-            </button>
-          </div>
-        </aside>
-      </main>
+          <aside className="dashboard-right">
+            <div className="dashboard-right-actions">
+              <button type="button" onClick={() => setIsCreateProjectOpen(true)}>
+                Skapa ett nytt projekt
+              </button>
+              <button type="button" onClick={() => setIsAddSoundbiteOpen(true)}>
+               Lägg till en soundbite
+              </button>
+            </div>
+          </aside>
+        </main>
+      </div>
 
-      <footer className="dashboard-footer">Concept & development by Ella, 2026.</footer>
 
       {isCreateProjectOpen && (
         <CreateNewProject

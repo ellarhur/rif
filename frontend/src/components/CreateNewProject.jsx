@@ -3,13 +3,13 @@ import { ethers } from 'ethers'
 import rifAbi from '../abi/rifAbi.json'
 import { getRifAddress } from '../config/getRifAddress'
 import { CHAIN_IDS } from '../config/contracts'
-import { useWallet } from '../context/WalletContext.jsx'
+import { useWallet } from '../context/useWallet.js'
 import { saveProjectCreation } from '../utils/rifProjectRecords'
 import { getWalletChainId, isEthereumSepolia, switchToEthereumSepolia } from '../utils/rifChain'
 import '../styles/CreateNewProject.scss'
 
 const CreateNewProject = ({ onClose, onSuccess, onCreated }) => {
-  const { activeProvider } = useWallet()
+  const { account } = useWallet()
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -23,7 +23,7 @@ const CreateNewProject = ({ onClose, onSuccess, onCreated }) => {
       return
     }
 
-    const eip1193 = activeProvider || window.ethereum
+    const eip1193 = window.ethereum
     if (!eip1193) {
       setError('Ingen wallet hittades. Logga in igen från startsidan.')
       return
@@ -109,8 +109,8 @@ const CreateNewProject = ({ onClose, onSuccess, onCreated }) => {
         <button className="createnewproject-close" onClick={onClose} aria-label="Close modal">
           x
         </button>
-        <h1 id="createnewproject-title">Create New Project</h1>
-        <p>Create a new project to start your creative journey.</p>
+        <h1 id="createnewproject-title">Skapa ett nytt projekt</h1>
+        <p>Ge ditt kreativa projekt ett namn, en kort beskrivning och gå sedan vidare för att lägga till din första soundbite.</p>
         <input
           type="text"
           placeholder="Project Name"

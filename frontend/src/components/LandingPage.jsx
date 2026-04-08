@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import '../App.css'
-import '../styles/LogIn.scss'
-import { labelForProvider, useWallet } from '../context/WalletContext.jsx'
+import '../styles/LandingPage.scss'
+import { useWallet } from '../context/useWallet.js'
 
 const LandingPage = () => {
   const navigate = useNavigate()
   const {
     account,
-    availableProviders,
-    hasInjectedWallet,
+    hasMetaMask,
     isConnecting,
     connectError,
     setConnectError,
-    connectWithProvider,
+    connectMetaMask,
   } = useWallet()
   const [rifOpen, setRifOpen] = useState(false)
 
@@ -28,40 +27,22 @@ const LandingPage = () => {
       <h1>Rif</h1>
       <p>Proof of Creative Process</p>
 
-      {!hasInjectedWallet && (
-        <p className="landing-page__hint">Installera t.ex. MetaMask för att logga in med en wallet.</p>
+      {!hasMetaMask && (
+        <p className="landing-page__hint">Installera MetaMask för att logga in.</p>
       )}
 
-      {hasInjectedWallet && availableProviders.length === 1 && (
+      {hasMetaMask && (
         <button
           type="button"
           className="landing-page__login"
           disabled={isConnecting}
           onClick={() => {
             setConnectError('')
-            void connectWithProvider(availableProviders[0])
+            connectMetaMask()
           }}
         >
-          {isConnecting ? 'Öppnar wallet…' : 'Logga in med wallet'}
+          {isConnecting ? 'Öppnar MetaMask…' : 'Logga in med MetaMask'}
         </button>
-      )}
-
-      {hasInjectedWallet && availableProviders.length > 1 && (
-        <div className="landing-page__wallet-picker">
-          {availableProviders.map((provider, index) => (
-            <button
-              key={`${labelForProvider(provider, index)}-${index}`}
-              type="button"
-              disabled={isConnecting}
-              onClick={() => {
-                setConnectError('')
-                void connectWithProvider(provider)
-              }}
-            >
-              {isConnecting ? 'Ansluter…' : `Logga in med ${labelForProvider(provider, index)}`}
-            </button>
-          ))}
-        </div>
       )}
 
       {connectError && <p className="landing-page__error">{connectError}</p>}
@@ -76,8 +57,8 @@ const LandingPage = () => {
           Vad är Rif? <span className={`landing-page__arrow ${rifOpen ? 'landing-page__arrow--open' : ''}`}>▼</span>
         </button>
         <div className={`landing-page__whatisrif-content ${rifOpen ? 'landing-page__whatisrif-content--open' : ''}`}>
-          <p>Rif är en plattform för att bevisa din kreativa process. Som artist kan du samla dina idéer, skisser och soundbites i projekt över tid.</p>
-          <p>Istället för att bara visa slutresultatet hjälper Rif dig att dokumentera vägen bakom din skapelse.</p>
+          <p>Rif är en plattform för dig som låtskrivare att bevisa din kreativa process. Du kan samla dina idéer, skisser och soundbites i projekt över tid.</p>
+          <p>Istället för att bara visa slutresultatet hjälper Rif dig att dokumentera vägen bakom din skapelse. Varje soundbite blir som en skärmdump på hur låten lät vid en viss tidpunkt.</p>
         </div>
       </div>
     </div>

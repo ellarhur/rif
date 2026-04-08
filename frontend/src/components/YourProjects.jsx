@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { useWallet } from '../context/WalletContext.jsx'
+import { useWallet } from '../context/useWallet.js'
 import { getRifReadOnlyContract } from '../utils/rifContractRead'
 import { getProjectRecords } from '../utils/rifProjectRecords'
 import { CHAIN_IDS } from '../config/contracts'
@@ -7,7 +7,7 @@ import { getWalletChainId, switchToEthereumSepolia } from '../utils/rifChain'
 import ProjectDetailModal from './ProjectDetailModal'
 
 const YourProjects = ({ refreshKey = 0 }) => {
-  const { account, activeProvider } = useWallet()
+  const { account } = useWallet()
   const [projects, setProjects] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
@@ -19,7 +19,7 @@ const YourProjects = ({ refreshKey = 0 }) => {
     setError('')
     setWrongChainId(null)
     setLoading(true)
-    const eip1193 = activeProvider || window.ethereum
+    const eip1193 = window.ethereum
     if (!eip1193 || !account) {
       setProjects([])
       setLoading(false)
@@ -62,14 +62,14 @@ const YourProjects = ({ refreshKey = 0 }) => {
     } finally {
       setLoading(false)
     }
-  }, [account, activeProvider])
+  }, [account])
 
   useEffect(() => {
     void loadProjects()
   }, [loadProjects, refreshKey])
 
   const handleSwitchSepolia = async () => {
-    const eip1193 = activeProvider || window.ethereum
+    const eip1193 = window.ethereum
     if (!eip1193) return
     setSwitchBusy(true)
     setError('')
@@ -123,7 +123,6 @@ const YourProjects = ({ refreshKey = 0 }) => {
       {selected && (
         <ProjectDetailModal
           project={selected}
-          activeProvider={activeProvider}
           refreshKey={refreshKey}
           onClose={() => setSelected(null)}
         />
