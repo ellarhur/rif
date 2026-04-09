@@ -10,6 +10,8 @@ import AddSoundbiteButton from './AddSoundbiteButton'
 import Navbar from './Navbar'
 import { useWallet } from '../context/useWallet.js'
 import { saveLocalSoundbite } from '../utils/rifSoundbiteRecords'
+import '../styles/ProjectDetailModal.scss'
+import '../styles/YourProjects.scss'
 
 const RifDashboard = () => {
   const navigate = useNavigate()

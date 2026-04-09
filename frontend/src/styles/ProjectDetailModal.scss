@@ -1,0 +1,141 @@
+.projectdetail-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.65);
+    display: grid;
+    place-items: center;
+    z-index: 25;
+    padding: 1rem;
+}
+
+.projectdetail-modal {
+    width: min(700px, 92vw);
+    max-height: 90vh;
+    overflow-y: auto;
+    border: 1px solid #d9d9d9;
+    border-radius: 14px;
+    background: #1d1c1c;
+    color: #fff;
+    padding: 3rem clamp(1.5rem, 5vw, 3rem) 2rem;
+    position: relative;
+    display: grid;
+    gap: 1.3rem;
+    box-sizing: border-box;
+
+}
+
+.projectdetail-modal h2 {
+    margin: 0 0 0.5rem;
+    padding-right: 2rem;
+    font-size: 1.5rem;
+}
+
+.projectdetail-modal h3 {
+    margin: 1.2rem 0 0.5rem;
+    font-size: 1.15rem;
+}
+
+.projectdetail-description {
+    margin: 0 0 0.75rem;
+    line-height: 1.45;
+    white-space: pre-wrap;
+}
+
+.projectdetail-meta {
+    margin: 0 0 0.5rem;
+    font-size: 0.95rem;
+    opacity: 0.9;
+}
+
+.projectdetail-tx {
+    background: #cde9ff;
+    padding: 0.65rem 0.85rem;
+    border-radius: 12px;
+    margin: 0 0 0.75rem;
+}
+
+.projectdetail-tx a {
+    color: #1d1c1c;
+    text-decoration: none;
+
+    &:hover {
+        font-style: italic;
+    }
+}
+
+.projectdetail-tx--muted {
+    font-size: 0.9rem;
+    opacity: 0.85;
+    line-height: 1.35;
+}
+
+.projectdetail-soundbites-title {
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    padding-top: 0.75rem;
+}
+
+.projectdetail-muted {
+    margin: 0.25rem 0;
+    opacity: 0.85;
+    font-size: 0.95rem;
+}
+
+.projectdetail-error {
+    color: #ffb3b3;
+    margin: 0.25rem 0;
+}
+
+.projectdetail-soundbite-list {
+    margin: 0;
+    padding-left: 1.1rem;
+}
+
+.projectdetail-soundbite-item {
+    margin-bottom: 0.75rem;
+    line-height: 1.4;
+}
+
+.projectdetail-cid {
+    font-size: 0.85rem;
+    opacity: 0.9;
+    word-break: break-all;
+}
+
+.projectdetail-audioplayer {
+    margin: 0.6rem 0 0.4rem;
+    display: grid;
+    gap: 0.3rem;
+
+    audio {
+        width: 100%;
+        border-radius: 8px;
+        accent-color: #cde9ff;
+    }
+}
+
+.projectdetail-filename {
+    font-size: 0.85rem;
+    opacity: 0.75;
+}
+
+.projectdetail-loading {
+    margin: 0.4rem 0 0.2rem;
+    font-size: 0.85rem;
+}
+
+.projectdetail-close {
+    position: absolute;
+    top: 0.6rem;
+    right: 0.6rem;
+    border: none;
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1.4rem;
+    line-height: 1;
+    padding: 0.2rem 0.4rem;
+    width: 34px;
+    height: 34px;
+}
+
+

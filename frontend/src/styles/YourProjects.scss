@@ -1,0 +1,53 @@
+.yourprojects-panel {
+    border: 1px solid #d9d9d9;
+    border-radius: 12px;
+    min-height: 320px;
+    min-width: 0;
+    padding: 0.8rem 0.9rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    font-size: 1.5rem;
+}
+
+.yourprojects-panel h1 {
+    font-size: 1.85rem;
+    margin: 0.2rem 0 0.5rem;
+    text-align: center;
+}
+
+.yourprojects-panel__status,
+.yourprojects-panel__error {
+    margin: 0;
+    font-size: 1rem;
+    text-align: center;
+    line-height: 1.35;
+}
+
+.yourprojects-panel__error {
+    color: #ffb3b3;
+}
+
+.yourprojects-panel__chainid {
+    margin: 0.35rem 0 0;
+    font-size: 0.9rem;
+    opacity: 0.85;
+    text-align: center;
+}
+
+.yourprojects-panel__switch {
+    margin-top: 0.75rem;
+    align-self: center;
+    border: 1px solid #d9d9d9;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
+    cursor: pointer;
+    padding: 0.55rem 1rem;
+    font-size: 1rem;
+}
+
+.yourprojects-panel__switch:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
