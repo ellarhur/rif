@@ -16,8 +16,7 @@ contract Rif {
         uint256 id;
         uint256 projectId;
         address author;
-        string ipfsCid;      
-        string SoundbiteType;
+        string ipfsCid;
         string description;
         uint256 timestamp;
     }
@@ -68,7 +67,6 @@ contract Rif {
     function addSoundbite(
         uint256 projectId,
         string calldata ipfsCid,
-        string calldata SoundbiteType,
         string calldata description
     )
         external
@@ -86,7 +84,6 @@ contract Rif {
             projectId: projectId,
             author: msg.sender,
             ipfsCid: ipfsCid,
-            SoundbiteType: SoundbiteType,
             description: description,
             timestamp: block.timestamp
         });
@@ -120,5 +117,14 @@ contract Rif {
 
     function SoundbiteCount() external view returns (uint256) {
         return _SoundbiteCounter;
+    }
+
+    function getAllProjects() external view returns (Project[] memory) {
+        uint256 total = _projectCounter;
+        Project[] memory all = new Project[](total);
+        for (uint256 i = 1; i <= total; i++) {
+            all[i - 1] = projects[i];
+        }
+        return all;
     }
 }

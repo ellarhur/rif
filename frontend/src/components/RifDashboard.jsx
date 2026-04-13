@@ -7,6 +7,7 @@ import CreateNewProject from './CreateNewProject'
 import CreateNewProjectResult from './CreateNewProjectResult'
 import YourProjects from './YourProjects'
 import AddSoundbiteButton from './AddSoundbiteButton'
+import ExploreProjects from './ExploreProjects'
 import Navbar from './Navbar'
 import { useWallet } from '../context/useWallet.js'
 import { saveLocalSoundbite } from '../utils/rifSoundbiteRecords'
@@ -19,6 +20,7 @@ const RifDashboard = () => {
   const [isWhatIsRifOpen, setIsWhatIsRifOpen] = useState(false)
   const [isCreateProjectOpen, setIsCreateProjectOpen] = useState(false)
   const [isAddSoundbiteOpen, setIsAddSoundbiteOpen] = useState(false)
+  const [isExploreOpen, setIsExploreOpen] = useState(false)
   const [projectsRefreshKey, setProjectsRefreshKey] = useState(0)
   const [createResult, setCreateResult] = useState(null)
   
@@ -59,6 +61,9 @@ const RifDashboard = () => {
               <button type="button" onClick={() => setIsAddSoundbiteOpen(true)}>
                Lägg till en soundbite
               </button>
+              <button type="button" onClick={() => setIsExploreOpen(true)}>
+                Utforska alla projekt
+              </button>
             </div>
           </aside>
         </main>
@@ -93,6 +98,7 @@ const RifDashboard = () => {
           }}
         />
       )}
+      {isExploreOpen && <ExploreProjects onClose={() => setIsExploreOpen(false)} />}
       {isWhatIsRifOpen && <WhatIsRif onClose={() => setIsWhatIsRifOpen(false)} />}
     </div>
   )

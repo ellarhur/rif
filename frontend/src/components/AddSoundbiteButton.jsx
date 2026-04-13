@@ -32,8 +32,6 @@ const AddSoundbiteButton = ({ onClose, onSave }) => {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [result, setResult] = useState(null)
 
-  const soundbiteType = 'audio'
-
   const selectedProject = useMemo(
     () => projects.find((p) => String(p.id) === String(selectedProjectId)) ?? null,
     [projects, selectedProjectId]
@@ -103,7 +101,6 @@ const AddSoundbiteButton = ({ onClose, onSave }) => {
         projectId: String(selectedProject.id),
         projectTitle,
         date,
-        soundbiteType,
         description: description.trim(),
         file: {
           cid: fileUpload.cid,
@@ -118,7 +115,7 @@ const AddSoundbiteButton = ({ onClose, onSave }) => {
       const provider = new ethers.BrowserProvider(eip1193)
       const signer = await provider.getSigner()
       const contract = new ethers.Contract(getRifAddress(Number(CHAIN_IDS.sepolia)), rifAbi, signer)
-      const tx = await contract.addSoundbite(selectedProject.id, metaUpload.cid, soundbiteType, description.trim())
+      const tx = await contract.addSoundbite(selectedProject.id, metaUpload.cid, description.trim())
       await tx.wait()
 
       setResult({
@@ -132,7 +129,6 @@ const AddSoundbiteButton = ({ onClose, onSave }) => {
         projectTitle,
         description: description.trim(),
         date,
-        soundbiteType,
         ipfsCid: metaUpload.cid,
         txHash: tx.hash,
       })

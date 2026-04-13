@@ -43,7 +43,7 @@ function SoundbitePlayer({ soundbite }) {
 
   return (
     <li className="projectdetail-soundbite-item">
-      <strong>#{soundbite.id}</strong> · {soundbite.soundbiteType || '—'}
+      <strong>#{soundbite.id}</strong>
       {soundbite.description ? ` — ${soundbite.description}` : ''}
 
       {fetching && (
@@ -112,7 +112,6 @@ const ProjectDetailModal = ({ project, refreshKey, onClose }) => {
           list.push({
             id: s.id.toString(),
             ipfsCid: s.ipfsCid,
-            soundbiteType: s.SoundbiteType,
             description: s.description,
             timestamp: s.timestamp,
             author: s.author,
