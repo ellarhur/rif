@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { getRifReadOnlyContract } from '../utils/rifContractRead'
-import { getLocalSoundbites } from '../utils/rifSoundbiteRecords'
-import { useWallet } from '../context/useWallet.js'
 
 const IPFS_GATEWAY = 'https://gateway.pinata.cloud/ipfs'
 
@@ -81,9 +79,7 @@ function SoundbitePlayer({ soundbite }) {
 }
 
 const ProjectDetailModal = ({ project, refreshKey, onClose }) => {
-  const { account } = useWallet()
   const [soundbites, setSoundbites] = useState([])
-  const [localSoundbites, setLocalSoundbites] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
 
@@ -93,7 +89,6 @@ const ProjectDetailModal = ({ project, refreshKey, onClose }) => {
       setError('')
       setLoading(true)
       setSoundbites([])
-      setLocalSoundbites([])
       const eip1193 = window.ethereum
       if (!eip1193 || !project?.id) {
         setLoading(false)
@@ -119,7 +114,6 @@ const ProjectDetailModal = ({ project, refreshKey, onClose }) => {
         }
         if (!cancelled) {
           setSoundbites(list)
-          setLocalSoundbites(getLocalSoundbites(account, project.id))
         }
       } catch (e) {
         if (!cancelled) setError(e?.shortMessage || e?.message || 'Kunde inte läsa soundbites.')
@@ -131,7 +125,7 @@ const ProjectDetailModal = ({ project, refreshKey, onClose }) => {
     return () => {
       cancelled = true
     }
-  }, [project?.id, refreshKey, account])
+  }, [project?.id, refreshKey])
 
   if (!project) return null
 
@@ -174,7 +168,7 @@ const ProjectDetailModal = ({ project, refreshKey, onClose }) => {
         <h3 className="projectdetail-soundbites-title">Soundbites</h3>
         {loading && <p className="projectdetail-muted">Laddar…</p>}
         {error && <p className="projectdetail-error">{error}</p>}
-        {!loading && !error && soundbites.length === 0 && localSoundbites.length === 0 && (
+        {!loading && !error && soundbites.length === 0 && (
           <p className="projectdetail-muted">Inga soundbites i det här projektet än.</p>
         )}
         {!loading && soundbites.length > 0 && (

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 // import logoTransparent from '../assets/logotransparent.png'
 import '../styles/RifDashboard.scss'
-import WhatIsRif from './WhatIsRif'
 import CreateNewProject from './CreateNewProject'
 import CreateNewProjectResult from './CreateNewProjectResult'
 import YourProjects from './YourProjects'
@@ -17,7 +16,6 @@ import '../styles/YourProjects.scss'
 const RifDashboard = () => {
   const navigate = useNavigate()
   const { account } = useWallet()
-  const [isWhatIsRifOpen, setIsWhatIsRifOpen] = useState(false)
   const [isCreateProjectOpen, setIsCreateProjectOpen] = useState(false)
   const [isAddSoundbiteOpen, setIsAddSoundbiteOpen] = useState(false)
   const [isExploreOpen, setIsExploreOpen] = useState(false)
@@ -99,7 +97,6 @@ const RifDashboard = () => {
         />
       )}
       {isExploreOpen && <ExploreProjects onClose={() => setIsExploreOpen(false)} />}
-      {isWhatIsRifOpen && <WhatIsRif onClose={() => setIsWhatIsRifOpen(false)} />}
     </div>
   )
 }
