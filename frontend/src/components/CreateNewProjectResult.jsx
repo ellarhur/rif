@@ -1,3 +1,4 @@
+// Bekräftelsemodal som visas efter att ett projekt skapats, med projekt-ID och Etherscan-länk.
 import React from 'react'
 import '../styles/CreateNewProjectResult.scss'
 

@@ -1,3 +1,4 @@
+// Modal för att skapa ett nytt projekt och publicera det på Ethereum Sepolia.
 import React, { useState } from 'react'
 import { ethers } from 'ethers'
 import rifAbi from '../abi/rifAbi.json'

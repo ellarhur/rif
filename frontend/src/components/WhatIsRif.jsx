@@ -1,3 +1,4 @@
+// Modal som beskriver vad Rif är och hur plattformen fungerar.
 import React from 'react'
 import '../styles/WhatIsRif.scss'
 

@@ -1,3 +1,4 @@
+// Panel som listar och visar den inloggade användarens egna projekt från blockkedjan.
 import React, { useCallback, useEffect, useState } from 'react'
 import { useWallet } from '../context/useWallet.js'
 import { getRifReadOnlyContract } from '../utils/rifContractRead'

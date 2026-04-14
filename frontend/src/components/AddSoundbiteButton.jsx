@@ -1,3 +1,4 @@
+// Modal för att ladda upp en ljudfil till IPFS och koppla den till ett projekt on-chain.
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { ethers } from 'ethers'
 import '../styles/AddSoundbite.scss'

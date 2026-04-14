@@ -1,3 +1,4 @@
+// Hjälpfunktioner för att läsa och byta aktivt nätverk i MetaMask, med fokus på Ethereum Sepolia.
 import { CHAIN_IDS } from '../config/contracts'
 
 export const SEPOLIA_CHAIN_ID = BigInt(CHAIN_IDS.sepolia)

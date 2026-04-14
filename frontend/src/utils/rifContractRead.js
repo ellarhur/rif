@@ -1,3 +1,4 @@
+// Skapar en läs-only instans av Rif-kontraktet kopplad till användarens wallet-provider.
 import { ethers } from 'ethers'
 import rifAbi from '../abi/rifAbi.json'
 import { getRifAddress } from '../config/getRifAddress'

@@ -1,3 +1,4 @@
+// Modal som visar ett projekts detaljer och spelar upp tillhörande soundbites från IPFS.
 import React, { useEffect, useState } from 'react'
 import { getRifReadOnlyContract } from '../utils/rifContractRead'
 

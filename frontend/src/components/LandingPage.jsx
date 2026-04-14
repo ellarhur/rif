@@ -1,3 +1,4 @@
+// Startsida med MetaMask-inloggning och en expanderbar "Vad är Rif?"-sektion.
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import '../App.css'

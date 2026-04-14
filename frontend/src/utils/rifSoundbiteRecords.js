@@ -1,3 +1,4 @@
+// Sparar och läser lokala soundbite-poster i localStorage som logg per wallet och projekt.
 const STORAGE_KEY = 'rif_soundbite_records_v1'
 
 function readAll() {

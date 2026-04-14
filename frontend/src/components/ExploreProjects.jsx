@@ -1,3 +1,4 @@
+// Modal som hämtar alla projekt från blockkedjan och låter användaren söka bland dem.
 import React, { useEffect, useState } from 'react'
 import { getRifReadOnlyContract } from '../utils/rifContractRead'
 import ProjectDetailModal from './ProjectDetailModal'

@@ -1,3 +1,4 @@
+// Sparar och läser tx-hash och metadata för skapade projekt lokalt i localStorage per wallet.
 const STORAGE_KEY = 'rif_project_records_v1'
 
 function readAll() {

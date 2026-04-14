@@ -1,3 +1,4 @@
+// Huvudvy efter inloggning – samlar alla paneler och modaler för projekthantering.
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 // import logoTransparent from '../assets/logotransparent.png'
