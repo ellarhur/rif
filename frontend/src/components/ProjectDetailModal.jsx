@@ -113,12 +113,12 @@ const ProjectDetailModal = ({ project, refreshKey, onClose }) => {
           setSoundbites(list)
         }
       } catch (e) {
-        if (!cancelled) setError(e?.shortMessage || e?.message || 'Kunde inte läsa soundbites.')
+        if (!cancelled) setError(e.message || 'Kunde inte läsa soundbites.')
       } finally {
         if (!cancelled) setLoading(false)
       }
     }
-    void load()
+    load()
     return () => {
       cancelled = true
     }

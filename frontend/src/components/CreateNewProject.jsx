@@ -89,7 +89,7 @@ const CreateNewProject = ({ onClose, onSuccess, onCreated }) => {
       setDescription('')
       onClose?.()
     } catch (createError) {
-      setError(createError?.shortMessage || createError?.message || 'Transaction failed.')
+      setError(createError.message || 'Något gick fel, försök igen.')
     } finally {
       setIsSubmitting(false)
     }

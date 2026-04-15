@@ -50,7 +50,7 @@ const YourProjects = ({ refreshKey = 0 }) => {
       list.sort((a, b) => Number(b.id) - Number(a.id))
       setProjects(list)
     } catch (e) {
-      setError(e?.shortMessage || e?.message || 'Kunde inte läsa projekt.')
+      setError(e.message || 'Kunde inte läsa projekt.')
       setProjects([])
     } finally {
       setLoading(false)
@@ -58,7 +58,7 @@ const YourProjects = ({ refreshKey = 0 }) => {
   }, [account])
 
   useEffect(() => {
-    void loadProjects()
+    loadProjects()
   }, [loadProjects, refreshKey])
 
   return (

@@ -67,7 +67,7 @@ const AddSoundbiteButton = ({ onClose, onSave }) => {
         setSelectedProjectId(list[0].id)
       }
     } catch (e) {
-      setError(e?.shortMessage || e?.message || 'Kunde inte läsa projekt.')
+      setError(e.message || 'Kunde inte läsa projekt.')
       setProjects([])
     } finally {
       setLoading(false)
@@ -75,7 +75,7 @@ const AddSoundbiteButton = ({ onClose, onSave }) => {
   }, [account, selectedProjectId])
 
   useEffect(() => {
-    void loadProjects()
+    loadProjects()
   }, [loadProjects])
 
   const handlePublish = async () => {
@@ -154,7 +154,7 @@ const AddSoundbiteButton = ({ onClose, onSave }) => {
       setDescription('')
       setFile(null)
     } catch (e) {
-      setError(e?.message || 'Kunde inte publicera soundbite.')
+      setError(e.message || 'Kunde inte publicera soundbite.')
     } finally {
       setIsSubmitting(false)
     }
@@ -231,7 +231,7 @@ const AddSoundbiteButton = ({ onClose, onSave }) => {
             )}
 
             <button type="button" onClick={onClose}>Avbryt</button>
-            <button type="button" onClick={() => void handlePublish()} disabled={isSubmitting}>
+            <button type="button" onClick={() => handlePublish()} disabled={isSubmitting}>
               {isSubmitting ? 'Publicerar…' : 'Publicera soundbite'}
             </button>
           </>

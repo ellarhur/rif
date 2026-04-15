@@ -33,12 +33,12 @@ const ExploreProjects = ({ onClose }) => {
           .sort((a, b) => Number(b.id) - Number(a.id))
         setAllProjects(list)
       } catch (e) {
-        setError(e?.shortMessage || e?.message || 'Kunde inte hämta projekt.')
+        setError(e.message || 'Kunde inte hämta projekt.')
       } finally {
         setLoading(false)
       }
     }
-    void load()
+    load()
   }, [])
 
   const filtered = allProjects.filter((p) => {
