@@ -1,4 +1,3 @@
-// Sparar och läser tx-hash och metadata för skapade projekt lokalt i localStorage per wallet.
 const STORAGE_KEY = 'rif_project_records_v1'
 
 function readAll() {
@@ -14,10 +13,6 @@ function writeAll(data) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
 }
 
-/**
- * Sparar metadata för skapat projekt (tx-hash m.m.) per wallet-adress.
- * Titel/beskrivning finns on-chain men tx kräver att vi minns den lokalt.
- */
 export function saveProjectCreation(account, { projectId, txHash, title, description }) {
   if (!account || projectId == null || !txHash) return
   const addr = account.toLowerCase()

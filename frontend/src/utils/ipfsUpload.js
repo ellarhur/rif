@@ -1,4 +1,3 @@
-// Laddar upp filer och JSON-metadata till IPFS via Pinata och returnerar CID och gateway-URL.
 const PINATA_FILE_URL = 'https://api.pinata.cloud/pinning/pinFileToIPFS'
 const PINATA_JSON_URL = 'https://api.pinata.cloud/pinning/pinJSONToIPFS'
 const IPFS_GATEWAY = 'https://gateway.pinata.cloud/ipfs'

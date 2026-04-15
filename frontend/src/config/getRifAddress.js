@@ -1,4 +1,3 @@
-// Returnerar Rif-kontraktets adress för ett givet nätverks-ID, eller kastar fel om nätverket inte stöds.
 import { CONTRACTS, CHAIN_IDS } from './contracts'
 
 export function getRifAddress(chainId) {

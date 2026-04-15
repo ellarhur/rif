@@ -31,7 +31,7 @@ export function WalletProvider({ children }) {
         params: [{ eth_accounts: {} }],
       })
     } catch {
-      // Vissa versioner av MetaMask stöder inte revoke – fortsätt ändå.
+      //
     }
     setAccount('')
     setConnectError('')

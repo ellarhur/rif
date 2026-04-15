@@ -1,7 +1,5 @@
-// Huvudvy efter inloggning – samlar alla paneler och modaler för projekthantering.
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-// import logoTransparent from '../assets/logotransparent.png'
 import '../styles/RifDashboard.scss'
 import CreateNewProject from './CreateNewProject'
 import CreateNewProjectResult from './CreateNewProjectResult'
@@ -37,7 +35,6 @@ const RifDashboard = () => {
     <div className="dashboard-page">
       <header className="dashboard-header">
         <div className="dashboard-headerInner">
-          {/* <img src={logoTransparent} alt="Rif logo" /> */}
           <h1 className="dashboard-headerLogo">Rif.</h1>
           <Navbar />
         </div>
@@ -89,7 +86,6 @@ const RifDashboard = () => {
         <AddSoundbiteButton
           onClose={() => setIsAddSoundbiteOpen(false)}
           onSave={(payload) => {
-            // Spara lokalt också (bra som "draft/logg"), men on-chain sker i modalen.
             if (payload?.date && payload?.projectId && payload?.description) {
               saveLocalSoundbite(account, payload)
             }

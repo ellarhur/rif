@@ -1,4 +1,3 @@
-// Sparar och läser lokala soundbite-poster i localStorage som logg per wallet och projekt.
 const STORAGE_KEY = 'rif_soundbite_records_v1'
 
 function readAll() {
@@ -14,9 +13,6 @@ function writeAll(data) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
 }
 
-/**
- * Sparar en "lokal soundbite" (ej publicerad on-chain än) per wallet-adress.
- */
 export function saveLocalSoundbite(account, { projectId, projectTitle, description, date }) {
   if (!account || !projectId || !description || !date) return
   const addr = account.toLowerCase()

@@ -1,14 +1,9 @@
-// Skapar en läs-only instans av Rif-kontraktet kopplad till användarens wallet-provider.
 import { ethers } from 'ethers'
 import rifAbi from '../abi/rifAbi.json'
 import { getRifAddress } from '../config/getRifAddress'
 import { CHAIN_IDS } from '../config/contracts'
 import { getWalletChainId, isEthereumSepolia } from './rifChain'
 
-/**
- * @param {import('ethers').Eip1193Provider} eip1193
- * @returns {Promise<import('ethers').Contract | null>}
- */
 export async function getRifReadOnlyContract(eip1193) {
   if (!eip1193) return null
   const chainId = await getWalletChainId(eip1193)
