@@ -40,11 +40,13 @@
     margin: 0 0 0.75rem;
     line-height: 1.45;
     white-space: pre-wrap;
+    font-size: 1rem;
+    font-style: italic;
 }
 
 .projectdetail-meta {
     margin: 0 0 0.5rem;
-    font-size: 0.95rem;
+    font-size: 1rem;
     opacity: 0.9;
 }
 
@@ -78,7 +80,7 @@
 .projectdetail-muted {
     margin: 0.25rem 0;
     opacity: 0.85;
-    font-size: 0.95rem;
+    font-size: 1rem;
 }
 
 .projectdetail-error {
@@ -88,18 +90,43 @@
 
 .projectdetail-soundbite-list {
     margin: 0;
-    padding-left: 1.1rem;
+    display: grid;
+    gap: 1.2rem;
+}
+
+.projectdetail-soundbite-entry {
+    display: grid;
+    gap: 0.2rem;
 }
 
 .projectdetail-soundbite-item {
-    margin-bottom: 0.75rem;
     line-height: 1.4;
+    font-size: 1rem;
+    font-weight: 600;
 }
 
-.projectdetail-cid {
+.projectdetail-soundbite-date {
+    display: block;
     font-size: 0.85rem;
-    opacity: 0.9;
-    word-break: break-all;
+    opacity: 0.6;
+    margin-bottom: 0.2rem;
+    font-weight: 400;
+}
+
+.projectdetail-cid-btn {
+    display: inline-block;
+    margin-top: 0.6rem;
+    background: #cde9ff;
+    color: #1d1c1c;
+    text-decoration: none;
+    padding: 0.5rem 0.85rem;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    font-weight: 400;
+
+    &:hover {
+        font-style: italic;
+    }
 }
 
 .projectdetail-audioplayer {
@@ -140,3 +167,9 @@
 }
 
 
+.projectdetail-meta {
+    margin: 0;
+    font-size: 1rem;
+    opacity: 0.9;
+    color: #fff;
+}

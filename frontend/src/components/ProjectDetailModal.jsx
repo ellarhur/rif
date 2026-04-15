@@ -41,41 +41,38 @@ function SoundbitePlayer({ soundbite }) {
   const audioUrl = isAudio ? `${IPFS_GATEWAY}/${meta.file.cid}` : null
 
   return (
-    <li className="projectdetail-soundbite-item">
-      <strong>#{soundbite.id}</strong>
-      {soundbite.description ? ` — ${soundbite.description}` : ''}
+    <div className="projectdetail-soundbite-entry">
+      <span className="projectdetail-soundbite-date">
+        {formatTs(soundbite.timestamp)}
+      </span>
+      <div className="projectdetail-soundbite-item">
+        <strong>{soundbite.id}</strong>
+        {soundbite.description ? `.  ${soundbite.description}` : ''}
 
-      {fetching && (
-        <p className="projectdetail-muted projectdetail-loading">Laddar fil…</p>
-      )}
-
-      {!fetching && audioUrl && (
-        <div className="projectdetail-audioplayer">
-          {meta?.file?.name && (
-            <span className="projectdetail-filename">{meta.file.name}</span>
-          )}
-          <audio controls src={audioUrl} preload="metadata">
-            Din webbläsare stöder inte audio-uppspelning.
-          </audio>
-        </div>
-      )}
-
-      <br />
-      <span className="projectdetail-cid">
-        IPFS CID:{' '}
-        {soundbite.ipfsCid ? (
-          <a href={`${IPFS_GATEWAY}/${soundbite.ipfsCid}`} target="_blank" rel="noreferrer">
-            {soundbite.ipfsCid}
-          </a>
-        ) : (
-          '—'
+        {fetching && (
+          <p className="projectdetail-muted projectdetail-loading">Laddar fil…</p>
         )}
-      </span>
-      <br />
-      <span className="projectdetail-muted">
-        {formatTs(soundbite.timestamp)} · {soundbite.author?.slice(0, 10)}…
-      </span>
-    </li>
+
+        {!fetching && audioUrl && (
+          <div className="projectdetail-audioplayer">
+            <audio controls src={audioUrl} preload="metadata">
+              Din webbläsare stöder inte audio-uppspelning.
+            </audio>
+          </div>
+        )}
+
+        {soundbite.ipfsCid && (
+          <a
+            className="projectdetail-cid-btn"
+            href={`${IPFS_GATEWAY}/${soundbite.ipfsCid}`}
+            target="_blank"
+            rel="noreferrer"
+          >
+            IPFS — Visa fil
+          </a>
+        )}
+      </div>
+    </div>
   )
 }
 
@@ -147,13 +144,12 @@ const ProjectDetailModal = ({ project, refreshKey, onClose }) => {
           ×
         </button>
         <h2 id="projectdetail-title">{project.title || `Project #${project.id}`}</h2>
-        <p className="projectdetail-description">{project.description || '—'}</p>
         <p className="projectdetail-meta">
-          <span>Projekt-ID: {project.id}</span>
           {project.createdAt != null && (
-            <span> · Skapad: {formatTs(project.createdAt)}</span>
+            <span>{formatTs(project.createdAt)}</span>
           )}
         </p>
+        <p className="projectdetail-description">"{project.description || '—'}"</p>
         {txUrl ? (
           <p className="projectdetail-tx">
             <a href={txUrl} target="_blank" rel="noreferrer">
@@ -173,11 +169,11 @@ const ProjectDetailModal = ({ project, refreshKey, onClose }) => {
           <p className="projectdetail-muted">Inga soundbites i det här projektet än.</p>
         )}
         {!loading && soundbites.length > 0 && (
-          <ul className="projectdetail-soundbite-list">
+          <div className="projectdetail-soundbite-list">
             {soundbites.map((s) => (
               <SoundbitePlayer key={s.id} soundbite={s} />
             ))}
-          </ul>
+          </div>
         )}
       </div>
     </div>

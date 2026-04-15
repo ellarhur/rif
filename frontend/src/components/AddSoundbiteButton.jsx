@@ -5,6 +5,7 @@ import '../styles/AddSoundbite.scss'
 import { useWallet } from '../context/useWallet.js'
 import { getRifReadOnlyContract } from '../utils/rifContractRead'
 import { CHAIN_IDS } from '../config/contracts'
+import { getWalletChainId, isEthereumSepolia, switchToEthereumSepolia } from '../utils/rifChain'
 import rifAbi from '../abi/rifAbi.json'
 import { getRifAddress } from '../config/getRifAddress'
 import { uploadFileToIpfs, uploadJsonToIpfs } from '../utils/ipfsUpload'
@@ -92,6 +93,23 @@ const AddSoundbiteButton = ({ onClose, onSave }) => {
 
     try {
       setIsSubmitting(true)
+
+      let chainId = await getWalletChainId(eip1193)
+      if (!isEthereumSepolia(chainId)) {
+        const switched = await switchToEthereumSepolia(eip1193)
+        if (!switched.ok) {
+          setError(
+            switched.message ||
+              `Fel nätverk (chainId ${chainId}). Byt till Ethereum Sepolia (${CHAIN_IDS.sepolia}) i MetaMask.`
+          )
+          return
+        }
+        chainId = await getWalletChainId(eip1193)
+        if (!isEthereumSepolia(chainId)) {
+          setError(`Fortfarande fel nätverk (chainId ${chainId}). Välj Ethereum Sepolia, inte Base Sepolia.`)
+          return
+        }
+      }
 
       const projectTitle = selectedProject.title?.trim() || `Project #${selectedProject.id}`
 

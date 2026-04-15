@@ -18,10 +18,8 @@ const CreateNewProjectResult = ({ result, onClose }) => {
           onClick={onClose}
           aria-label="Close modal"
         >
-          ×
         </button>
         <h3 id="createnewprojectresult-title">Projekt skapat</h3>
-        <p>Projekt-ID: {result?.projectId ?? '—'}</p>
         <p className="createnewprojectresult-hash">Hash: {result?.txHash ?? '—'}</p>
         <p>Ditt projekt är nu publicerat på blockkedjan.</p>
         {result?.etherscanUrl && (
